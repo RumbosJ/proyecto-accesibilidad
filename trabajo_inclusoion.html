@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoKids & Comunidad - Tecnología, IA e Inclusión</title>
+    <style>
+        :root {
+            --bg-body: #eef2f7;
+            --text-main: #2c3e50;
+            --primary: #2980b9;
+            --primary-dark: #1f618d;
+            --accent: #27ae60;
+            --card-bg: #ffffff;
+            --border: #cbd5e1;
+            --font-scale: 1rem;
+        }
+
+        body.high-contrast {
+            --bg-body: #000000;
+            --text-main: #ffff00;
+            --primary: #ffff00;
+            --primary-dark: #ffcc00;
+            --accent: #00ffff;
+            --card-bg: #121212;
+            --border: #ffff00;
+        }
+
+        body.text-sm { --font-scale: 0.9rem; }
+        body.text-md { --font-scale: 1.15rem; }
+        body.text-lg { --font-scale: 1.4rem; }
+        body.text-xl { --font-scale: 1.65rem; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-size: var(--font-scale);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        a:focus, button:focus, input:focus, select:focus {
+            outline: 5px solid #e74c3c !important;
+            outline-offset: 4px;
+        }
+
+        /* BARRA DE ACCESIBILIDAD */
+        .acc-bar {
+            background-color: var(--card-bg);
+            border-bottom: 3px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .acc-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-acc {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: 2px solid var(--primary-dark);
+            padding: 0.5rem 0.9rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        body.high-contrast .btn-acc {
+            color: #000;
+        }
+
+        /* CABECERA */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #ffffff;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--border);
+        }
+
+        body.high-contrast header { background: #000; }
+
+        header h1 { margin: 0; font-size: 2.4em; }
+        header p { margin-top: 0.5rem; font-size: 1.2em; }
+
+        /* NAVEGACIÓN */
+        nav {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--border);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: rgba(0,0,0,0.05);
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        nav a:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* CONTENEDOR */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 3px solid var(--border);
+            border-radius: 15px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* PRODUCTOS */
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-product {
+            background-color: var(--card-bg);
+            border: 3px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .product-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .card-product h3 { color: var(--primary); margin: 0.5rem 0; }
+
+        .btn-buy {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 3px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="text-md">
+
+    <!-- PANEL DE ACCESIBILIDAD -->
+    <div class="acc-bar" aria-label="Panel de Accesibilidad Universal">
+        <div><strong>🕹️ Accesibilidad Universal e Inclusiva</strong></div>
+        <div class="acc-controls">
+            <button class="btn-acc" id="btn-contrast" aria-label="Alto Contraste">🌓 Alto Contraste</button>
+            <button class="btn-acc" id="btn-dec" aria-label="Disminuir texto">A-</button>
+            <button class="btn-acc" id="btn-inc" aria-label="Aumentar texto">A+</button>
+            <button class="btn-acc" id="btn-speak" aria-label="Escuchar página">🔊 Escuchar</button>
+        </div>
+    </div>
+
+    <!-- CABECERA -->
+    <header role="banner">
+        <h1>TecnoKids & Comunidad 🖥️</h1>
+        <p>Hardware Accesible, Educación Tecnológica e Inclusión Social</p>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav role="navigation" aria-label="Menú principal">
+        <a href="#mensaje-social">Mensaje Social e IA</a>
+        <a href="#accesibilidad-detallada">¿Cómo ayudamos?</a>
+        <a href="#catalogo">Catálogo Básico</a>
+        <a href="#contacto">Equipo UPTTMBI</a>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" role="main">
+
+        <!-- APARTADO 1: MENSAJE SOCIAL (NIÑOS, TECNOLOGÍA E INTELIGENCIA ARTIFICIAL) -->
+        <section class="card" id="mensaje-social">
+            <h2>🌟 Mensaje Social: Niños, Tecnología e Inteligencia Artificial (IA)</h2>
+            <p>Fomentar la educación tecnológica y la alfabetización en <strong>Inteligencia Artificial desde la infancia</strong> no se trata solo de crear futuros programadores, sino de construir una sociedad más crítica, analítica y preparada para los retos del siglo XXI.</p>
+            <ul>
+                <li><strong>Pensamiento Computacional temprano:</strong> Ayuda a los niños a descomponer problemas complejos en partes sencillas, estimulando la lógica y la creatividad.</li>
+                <li><strong>La IA como herramienta aliada:</strong> Enseñar a los más jóvenes sobre Inteligencia Artificial les permite verla no como un reemplazo, sino como una superherramienta de apoyo para la investigación, el arte, la ciencia y la solución de problemas comunitarios.</li>
+                <li><strong>Igualdad de Oportunidades:</strong> Democratizar el access al conocimiento tecnológico desde la infancia rompe brechas sociales y geográficas, permitiendo que cualquier niño descubra su potencial sin importar su entorno.</li>
+            </ul>
+        </section>
+
+        <!-- APARTADO 2: ACCESIBILIDAD PARA PERSONAS CON DIFICULTADES -->
+        <section class="card" id="accesibilidad-detallada">
+            <h2>♿ Accesibilidad Total para Personas con Dificultades</h2>
+            <p>Este prototipo web fue diseñado bajo estándares internacionales de inclusión para garantizar que <strong>nadie se quede atrás</strong>:</p>
+            <ul>
+                <li><strong>Para personas con discapacidad visual o baja visión:</strong> Incluye un botón de <strong>Alto Contraste</strong> que cambia la interfaz a tonos de alto impacto visual y un sistema de <strong>Escalado de Texto (A+ / A-)</strong> que agranda las letras hasta un 165% sin deformar la pantalla.</li>
+                <li><strong>Asistencia Auditiva y Cognitiva:</strong> Cuenta con un botón de <strong>Síntesis de Voz ("🔊 Escuchar")</strong> que lee los apartados clave en voz alta, facilitando la comprensión a personas con dificultades lectoras o discapacidad visual total.</li>
+                <li><strong>Para personas con limitaciones motoras:</strong> Todos los botones y enlaces poseen áreas de selección amplias y marcos de enfoque resaltados, permitiendo una navegación fluida utilizando únicamente el teclado.</li>
+                <li><strong>Diseño Intergeneracional:</strong> Lenguaje claro y amigable que conecta de forma sencilla tanto a niños como a adultos mayores que se inician en la computación.</li>
+            </ul>
+        </section>
+
+        <!-- CATÁLOGO DE HARDWARE BÁSICO -->
+        <h2 id="catalogo" style="color: var(--primary); text-align: center; margin-bottom: 1.5rem;">Catálogo de Componentes Básicos</h2>
+        
+        <div class="grid-products">
+            <article class="card-product">
+                <div class="product-icon" aria-hidden="true">🧠</div>
+                <h3>Memoria RAM (8GB)</h3>
+                <p><strong>¿Qué es?:</strong> La mesa de trabajo de la computadora para abrir tareas y juegos con fluidez.</p>
+                <button class="btn-buy" onclick="alert('¡Seleccionado! Ideal para potenciar equipos de estudio.')">Consultar</button>
+            </article>
+
+            <article class="card-product">
+                <div class="product-icon" aria-hidden="true">📦</div>
+                <h3>Disco Sólido (SSD 240GB)</h3>
+                <p><strong>¿Qué es?:</strong> El cofre seguro para guardar proyectos, tareas y archivos sin perderlos.</p>
+                <button class="btn-buy" onclick="alert('¡Seleccionado! Almacenamiento rápido y seguro.')">Consultar</button>
+            </article>
+
+            <article class="card-product">
+                <div class="product-icon" aria-hidden="true">⌨️🖱️</div>
+                <h3>Kit Ergonómico</h3>
+                <p><strong>¿Qué es?:</strong> Teclado de alto contraste y ratón adaptado para manos pequeñas o movilidad reducida.</p>
+                <button class="btn-buy" onclick="alert('¡Seleccionado! Máxima comodidad para todos.')">Consultar</button>
+            </article>
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto" role="contentinfo">
+        <p><strong>Universidad Politécnica Territorial del Estado Trujillo "Mario Briceño Iragorry" (UPTTMBI)</strong></p>
+        <p>Trayecto Inicial de Informática — Unidad 1 de Proyecto</p>
+        <hr style="max-width: 300px; margin: 1rem auto; border-color: var(--border);">
+        <p><strong>Equipo Desarrollador:</strong></p>
+        <p>• José Omar Rumbos — C.I. 32289949<br>
+           • José Gregorio Méndez — C.I. 31177189</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('btn-contrast').addEventListener('click', () => {
+            document.body.classList.toggle('high-contrast');
+        });
+
+        const fontSizes = ['text-sm', 'text-md', 'text-lg', 'text-xl'];
+        let currentIdx = 1;
+
+        document.getElementById('btn-inc').addEventListener('click', () => {
+            if (currentIdx < fontSizes.length - 1) {
+                document.body.classList.remove(fontSizes[currentIdx]);
+                currentIdx++;
+                document.body.classList.add(fontSizes[currentIdx]);
+            }
+        });
+
+        document.getElementById('btn-dec').addEventListener('click', () => {
+            if (currentIdx > 0) {
+                document.body.classList.remove(fontSizes[currentIdx]);
+                currentIdx--;
+                document.body.classList.add(fontSizes[currentIdx]);
+            }
+        });
+
+        document.getElementById('btn-speak').addEventListener('click', () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const text = "TecnoKids y Comunidad. Fomentando la educación tecnológica y la Inteligencia Artificial desde la infancia, con una interfaz web totalmente accesible para personas con dificultades visuales, motoras o cognitivas.";
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'es-ES';
+                window.speechSynthesis.speak(utter);
+            } else {
+                alert('La síntesis de voz no está disponible en este navegador.');
+            }
+        });
+    </script>
+</body>
+</html>
